@@ -1,3 +1,10 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+}
 apply plugin: 'com.android.application'
 
 android {
@@ -22,4 +29,18 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.1.0'
+    debugCompile 'me.drakeet.library:crashwoodpecker:0.9.7'
+    releaseCompile 'me.drakeet.library:crashwoodpecker-do-nothing:0.9.7'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.android.support:cardview-v7:23.1.0'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.0@aar') {
+        transitive = true
+    }
+    compile 'com.github.blackfizz:eazegraph:1.2.2@aar'
+    compile('com.mikepenz:materialdrawer:4.4.6@aar') {
+        transitive = true
+    }
 }
+
