@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -18,7 +20,7 @@ import butterknife.ButterKnife;
  * class: QuestionFragment
  * Created by WindSekirun on 2015. 11. 10..
  */
-public class QuestionFragment extends Fragment {
+public class QuestionFragment extends Fragment implements Consts {
     @Bind(R.id.questionText)
     TextView questionText;
     @Bind(R.id.questionGroup1)
@@ -35,9 +37,8 @@ public class QuestionFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_question, container);
+        View v = inflater.inflate(R.layout.fragment_question, container, false);
         ButterKnife.bind(this, v);
-
 
         return v;
     }
