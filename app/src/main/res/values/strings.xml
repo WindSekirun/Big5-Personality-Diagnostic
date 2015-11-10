@@ -37,4 +37,6 @@
     <string name="activity_main_license">Open Source Libraries</string>
     <string name="activity_main_maker">Make by WindSekirun</string>
     <string name="activity_main_help">Help Guide</string>
+    <string name="fragment_question_submit">Submit</string>
+    <string name="util_storage_dialog">분석중입니다</string>
 </resources>

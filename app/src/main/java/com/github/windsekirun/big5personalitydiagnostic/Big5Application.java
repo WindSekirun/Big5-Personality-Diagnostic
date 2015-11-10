@@ -27,6 +27,7 @@ import me.drakeet.library.CrashWoodpecker;
  */
 public class Big5Application extends Application implements Consts {
     RefWatcher watcher;
+    public static Context c;
 
     public static RefWatcher getRefWatcher(Context context) {
         Big5Application application = (Big5Application) context.getApplicationContext();
@@ -37,6 +38,7 @@ public class Big5Application extends Application implements Consts {
     @Override
     public void onCreate() {
         super.onCreate();
+        c = getApplicationContext();
         if (isDebug) {
             watcher = LeakCanary.install(this);
             CrashWoodpecker.fly().to(this);

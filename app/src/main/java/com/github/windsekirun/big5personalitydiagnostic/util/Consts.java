@@ -7,5 +7,9 @@ package com.github.windsekirun.big5personalitydiagnostic.util;
  */
 public interface Consts {
     int Questions = 20;
-     boolean isDebug = false;
+    boolean isDebug = false;
+
+    String QuestNum = "questionNum";
+    String QuestProgress = "questionProgress";
+    String QuestPair = "questPair";
 }

@@ -1,77 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/fragment_question_questionNum"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dip"
         android:layout_marginTop="10dip"
-        android:layout_marginLeft="10dip" />
+        android:text="@string/fragment_question_questionNum"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
 
     <TextView
+        android:id="@+id/questionText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/questionText"
-        android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-        android:layout_marginTop="5dip"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginRight="10dip" />
+        android:layout_alignParentRight="true"
+        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/textView"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="5dip"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
 
     <RadioGroup
+        android:id="@+id/questionGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/questionGroup1"
-        android:layout_below="@id/questionText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:layout_alignLeft="@+id/questionText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignStart="@+id/questionText"
-        android:layout_marginRight="10dip">
+        android:layout_below="@id/questionText"
+        android:layout_marginRight="10dip"
+        android:layout_marginTop="30dip">
 
         <RadioButton
             android:id="@+id/questionRadio1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_question_radio1"
-            android:checked="true" />
+            android:checked="true"
+            android:text="@string/fragment_question_radio1" />
 
         <RadioButton
             android:id="@+id/questionRadio2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_question_radio2"
-            android:checked="false" />
+            android:checked="false"
+            android:text="@string/fragment_question_radio2" />
 
         <RadioButton
             android:id="@+id/questionRadio3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_question_radio3"
-            android:checked="false" />
+            android:checked="false"
+            android:text="@string/fragment_question_radio3" />
 
         <RadioButton
             android:id="@+id/questionRadio4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_question_radio4"
-            android:checked="false" />
+            android:checked="false"
+            android:text="@string/fragment_question_radio4" />
 
         <RadioButton
             android:id="@+id/questionRadio5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_question_radio5"
-            android:checked="false" />
+            android:checked="false"
+            android:text="@string/fragment_question_radio5" />
     </RadioGroup>
 
     <RelativeLayout
@@ -83,35 +87,35 @@
         android:background="#0097A7">
 
         <Button
+            android:id="@+id/questionPrev"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_question_prev"
-            android:id="@+id/questionPrev"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:background="#0097A7"
+            android:text="@string/fragment_question_prev"
             android:textColor="#ffffff" />
 
         <Button
+            android:id="@+id/questionNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/fragment_question_next"
-            android:id="@+id/questionNext"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:background="#0097A7"
+            android:text="@string/fragment_question_next"
             android:textColor="#ffffff" />
 
         <TextView
+            android:id="@+id/questionProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/fragment_question_progress"
-            android:id="@+id/questionProgress"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:textColor="#ffffff"
-            android:layout_centerHorizontal="true" />
+            android:text="@string/fragment_question_progress"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#ffffff" />
     </RelativeLayout>
 </RelativeLayout>

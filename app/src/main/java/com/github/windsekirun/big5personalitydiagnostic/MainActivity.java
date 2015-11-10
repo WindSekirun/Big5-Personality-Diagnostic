@@ -1,13 +1,17 @@
 package com.github.windsekirun.big5personalitydiagnostic;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
+import com.github.windsekirun.big5personalitydiagnostic.util.DiagnosticModel;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
+import com.github.windsekirun.big5personalitydiagnostic.util.QuestionStorage;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.mikepenz.materialdrawer.Drawer;
@@ -20,31 +24,37 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 @SuppressWarnings("ConstantConditions")
-public class MainActivity extends AppCompatActivity implements Consts {
+public class MainActivity extends AppCompatActivity implements Consts, onFragmentChangeRequest {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
     long backPressedTime;
     Drawer drawer;
-
+    QuestionStorage storage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        storage = new QuestionStorage(this);
+
         toolbarSetting();
         drawerSetting();
 
-        fragmentCommit(0);
+        fragmentCommit(1);
     }
 
     public void fragmentCommit(int num) {
         QuestionFragment questions = new QuestionFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("questionNum", num);
-        bundle.putFloat("quesitonProgress", ((num - 1) / Questions));
-        getSupportFragmentManager().beginTransaction().add(R.id.container, questions).commit();
+        bundle.putInt(QuestNum, num);
+        bundle.putSerializable(QuestPair, storage.getPair(num));
+        bundle.putFloat(QuestProgress, ((num - 1) / Questions));
+        questions.setArguments(bundle);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, questions).commit();
     }
 
     public void drawerSetting() {
@@ -73,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements Consts {
                                 drawer.setSelection(0);
                                 break;
                             case 1:
-                                //TODO: intent to Github
+                                //TODO: intent to My Github
                                 drawer.setSelection(0);
                                 break;
                             case 2:
@@ -117,5 +127,22 @@ public class MainActivity extends AppCompatActivity implements Consts {
     protected void onDestroy() {
         super.onDestroy();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onPrev(int nowNum, int checked) {
+        fragmentCommit(nowNum - 1);
+    }
+
+    @Override
+    public void onNext(int nowNum, int checked) {
+        storage.writePair(nowNum, checked);
+        if (nowNum != 20) {
+            fragmentCommit(nowNum + 1);
+        } else {
+            DiagnosticModel model = storage.analyze();
+            //TODO: Intent to ResultActivity
+        }
+
     }
 }
