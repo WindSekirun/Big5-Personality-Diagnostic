@@ -1,4 +1,4 @@
-package com.github.windsekirun.big5personalitydiagnostic;
+package com.github.windsekirun.big5personalitydiagnostic.util;
 
 /**
  * Big5 Personality Diagnostic

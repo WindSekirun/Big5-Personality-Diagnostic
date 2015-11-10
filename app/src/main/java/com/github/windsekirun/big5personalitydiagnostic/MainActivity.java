@@ -1,6 +1,7 @@
 package com.github.windsekirun.big5personalitydiagnostic;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
 import com.github.windsekirun.big5personalitydiagnostic.util.DiagnosticModel;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
 import com.github.windsekirun.big5personalitydiagnostic.util.QuestionStorage;
+import com.github.windsekirun.big5personalitydiagnostic.util.onFragmentChangeRequest;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
 import com.mikepenz.materialdrawer.Drawer;
@@ -82,20 +84,30 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                             case 0:
                                 drawer.setSelection(0);
                                 break;
-                            case 1:
-                                //TODO: intent to My Github
-                                drawer.setSelection(0);
-                                break;
                             case 2:
-                                //TODO: intent to LicenseActivity
+                                String url = "https://github.com/WindSekirun/Big5-Personality-Diagnostic";
+                                Intent intent = new Intent(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(url));
+                                startActivity(intent);
+                                overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
                             case 3:
-                                //TODO: intent to MakerActivity
+                                Intent license = new Intent(MainActivity.this, LicenseActivity.class);
+                                startActivity(license);
+                                overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
                             case 4:
-                                //TODO: intent to HelpActivity
+                                Intent maker = new Intent(MainActivity.this, MakerActivity.class);
+                                startActivity(maker);
+                                overridePendingTransition(0, 0);
+                                drawer.setSelection(0);
+                                break;
+                            case 5:
+                                Intent help = new Intent(MainActivity.this, HelpActivity.class);
+                                startActivity(help);
+                                overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
                         }
@@ -145,7 +157,6 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
             intent.putExtra(DiagModel, model);
             startActivity(intent);
             overridePendingTransition(0, 0);
-            //TODO: Intent to ResultActivity
         }
 
     }

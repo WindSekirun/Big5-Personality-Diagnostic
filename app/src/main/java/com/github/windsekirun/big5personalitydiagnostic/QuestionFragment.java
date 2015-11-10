@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
 import com.github.windsekirun.big5personalitydiagnostic.util.QuestionPair;
+import com.github.windsekirun.big5personalitydiagnostic.util.onFragmentChangeRequest;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
