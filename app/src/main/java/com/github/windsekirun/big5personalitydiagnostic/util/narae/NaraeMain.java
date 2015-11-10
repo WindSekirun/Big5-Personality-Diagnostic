@@ -1,6 +1,6 @@
 package com.github.windsekirun.big5personalitydiagnostic.util.narae;
 
-import palette.twitter.util.narae.util.MainThreadExecutor;
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.util.MainThreadExecutor;
 
 /**
  * NaraeAsynchronous

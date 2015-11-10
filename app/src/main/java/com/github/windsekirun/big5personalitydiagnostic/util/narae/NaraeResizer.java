@@ -6,7 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-import palette.twitter.util.narae.util.ImageDecoder;
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.util.ImageDecoder;
 
 /**
  * NaraeResizer

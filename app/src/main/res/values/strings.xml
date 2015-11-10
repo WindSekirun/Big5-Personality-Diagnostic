@@ -16,7 +16,7 @@
     <string name="question03">3. I get chores done right away.</string>
     <string name="question04">4. I have frequent mood swings.</string>
     <string name="question05">5. I have a vivid imagination.</string>
-    <string name="question06">6. I don't talk a lot.</string>
+    <string name="question06">6. I don\'t talk a lot.</string>
     <string name="question07">7. I am not interested in other people\'s problems.</string>
     <string name="question08">8. I often forgot to put things back in their proper place.</string>
     <string name="question09">9, 1 am relaxed most of the time.</string>
@@ -32,4 +32,9 @@
     <string name="question19">19. I seldom feel blue.</string>
     <string name="question20">20. I do not have a good imagination.</string>
     <string name="activity_main_again_exit">Press again to exit.</string>
+    <string name="activity_main_questions">Questions</string>
+    <string name="activity_main_github">Open to Github</string>
+    <string name="activity_main_license">Open Source Libraries</string>
+    <string name="activity_main_maker">Make by WindSekirun</string>
+    <string name="activity_main_help">Help Guide</string>
 </resources>

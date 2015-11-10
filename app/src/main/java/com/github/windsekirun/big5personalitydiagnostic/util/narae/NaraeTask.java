@@ -1,12 +1,12 @@
 package com.github.windsekirun.big5personalitydiagnostic.util.narae;
 
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.util.CpuCoreInfo;
+
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.FutureTask;
-
-import palette.twitter.util.narae.util.CpuCoreInfo;
 
 /**
  * NaraeAsynchronous

@@ -1,8 +1,8 @@
 package com.github.windsekirun.big5personalitydiagnostic.util.narae;
 
-import palette.twitter.util.narae.util.BackgroundThreadExecutor;
-import palette.twitter.util.narae.util.CpuCoreInfo;
-import palette.twitter.util.narae.util.RandomAttributes;
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.util.BackgroundThreadExecutor;
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.util.CpuCoreInfo;
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.util.RandomAttributes;
 
 /**
  * NaraeAsynchronous
