@@ -1,6 +1,13 @@
 <resources>
     <string name="app_name">Big5 Personality Diagnostic</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="fragment_question_questionNum">Question:</string>
+    <string name="fragment_question_radio1">VERY ACCURATE</string>
+    <string name="fragment_question_radio2">MODERATELY ACCURATE</string>
+    <string name="fragment_question_radio3">NEITHER INACCURATE NOT ACCURATE</string>
+    <string name="fragment_question_radio4">MODERATELY INACCURATE</string>
+    <string name="fragment_question_radio5">VERY INACCURATE</string>
+    <string name="fragment_question_prev">Prev</string>
+    <string name="fragment_question_next">Next</string>
+    <string name="fragment_question_progress">Progress:</string>
 </resources>
