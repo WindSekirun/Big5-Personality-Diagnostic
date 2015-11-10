@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
         Bundle bundle = new Bundle();
         bundle.putInt(QuestNum, num);
         bundle.putSerializable(QuestPair, storage.getPair(num));
-        bundle.putFloat(QuestProgress, ((num - 1) / Questions));
+        bundle.putString(QuestProgress," " + num + " / " + Questions);
         questions.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, questions).commit();

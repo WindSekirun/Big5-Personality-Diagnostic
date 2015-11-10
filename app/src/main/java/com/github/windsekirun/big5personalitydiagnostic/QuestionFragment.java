@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class QuestionFragment extends Fragment implements Consts {
     TextView questionProgress;
 
     int questionNum;
-    float questionPro;
+    String questionPro;
     QuestionPair pair;
 
     onFragmentChangeRequest listener;
@@ -61,7 +62,8 @@ public class QuestionFragment extends Fragment implements Consts {
         ButterKnife.bind(this, v);
 
         questionNum = getArguments().getInt(QuestNum);
-        questionPro = getArguments().getFloat(QuestProgress);
+        questionPro = getArguments().getString(QuestProgress);
+        Log.d(LOGTAG, questionPro + "");
         pair = (QuestionPair) getArguments().getSerializable(QuestPair);
 
         questionText.setText(pair.first);
@@ -80,7 +82,7 @@ public class QuestionFragment extends Fragment implements Consts {
             nextButton.setText(getString(R.string.fragment_question_next));
         }
 
-        questionProgress.setText(getString(R.string.fragment_question_progress) + String.format("%.2f", questionPro * 100));
+        questionProgress.setText(getString(R.string.fragment_question_progress) + questionPro);
 
 
         switch (pair.second) {

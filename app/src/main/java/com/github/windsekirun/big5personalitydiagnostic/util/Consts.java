@@ -9,6 +9,8 @@ public interface Consts {
     int Questions = 20;
     boolean isDebug = false;
 
+    String LOGTAG = "Big5PD";
+
     String QuestNum = "questionNum";
     String QuestProgress = "questionProgress";
     String QuestPair = "questPair";
