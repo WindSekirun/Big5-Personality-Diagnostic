@@ -63,7 +63,6 @@ public class QuestionFragment extends Fragment implements Consts {
 
         questionNum = getArguments().getInt(QuestNum);
         questionPro = getArguments().getString(QuestProgress);
-        Log.d(LOGTAG, questionPro + "");
         pair = (QuestionPair) getArguments().getSerializable(QuestPair);
 
         questionText.setText(pair.first);

@@ -11,7 +11,7 @@ import com.github.windsekirun.big5personalitydiagnostic.util.narae.NaraeMap;
  * class: QuestionStorage
  * Created by WindSekirun on 2015. 11. 10..
  */
-public class QuestionStorage {
+public class QuestionStorage implements Consts {
     Context c;
     NaraeMap<Integer, QuestionPair> questionList;
 
@@ -57,11 +57,13 @@ public class QuestionStorage {
         int n = getCheckedNum(4) + reverseInt(getCheckedNum(9)) + getCheckedNum(14) + reverseInt(getCheckedNum(19));
         int o = getCheckedNum(5) + reverseInt(getCheckedNum(10)) + reverseInt(getCheckedNum(15)) + reverseInt(getCheckedNum(20));
         int e = getCheckedNum(1) + reverseInt(getCheckedNum(6)) + getCheckedNum(11) + reverseInt(getCheckedNum(16));
-        Log.d("Big5-C", c + "");
-        Log.d("Big5-A", a + "");
-        Log.d("Big5-N", n + "");
-        Log.d("Big5-O", o + "");
-        Log.d("Big5-E", e + "");
+        if (isDebug) {
+            Log.d("Big5-C", c + "");
+            Log.d("Big5-A", a + "");
+            Log.d("Big5-N", n + "");
+            Log.d("Big5-O", o + "");
+            Log.d("Big5-E", e + "");
+        }
         return new DiagnosticModel(c, a, n, o, e);
     }
 

@@ -1,9 +1,11 @@
 package com.github.windsekirun.big5personalitydiagnostic;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.webkit.WebView;
 
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
@@ -32,6 +34,12 @@ public class LicenseActivity extends AppCompatActivity {
         toolbarSetting();
 
         webView.loadUrl("file:///android_asset/license.html");
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            getWindow().setNavigationBarColor(Material.getMaterialCyanColor(700));
+        }
     }
 
     @Override
