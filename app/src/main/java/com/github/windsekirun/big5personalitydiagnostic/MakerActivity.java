@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 @SuppressWarnings("ConstantConditions")
 public class MakerActivity extends AppCompatActivity {
     Toolbar toolbar;
-    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +26,6 @@ public class MakerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         toolbarSetting();
-
-        webView.loadUrl("");
     }
 
     @Override
