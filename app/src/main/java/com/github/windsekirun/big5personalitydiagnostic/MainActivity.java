@@ -1,10 +1,10 @@
 package com.github.windsekirun.big5personalitydiagnostic;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -141,6 +141,10 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
             fragmentCommit(nowNum + 1);
         } else {
             DiagnosticModel model = storage.analyze();
+            Intent intent = new Intent(MainActivity.this, ResultActivity.class);
+            intent.putExtra(DiagModel, model);
+            startActivity(intent);
+            overridePendingTransition(0, 0);
             //TODO: Intent to ResultActivity
         }
 

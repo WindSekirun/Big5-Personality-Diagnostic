@@ -38,7 +38,7 @@ dependencies {
     compile('com.github.afollestad.material-dialogs:core:0.8.5.0@aar') {
         transitive = true
     }
-    compile 'com.github.blackfizz:eazegraph:1.2.2@aar'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6'
     compile('com.mikepenz:materialdrawer:4.4.6@aar') {
         transitive = true
     }

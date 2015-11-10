@@ -1,11 +1,13 @@
 package com.github.windsekirun.big5personalitydiagnostic.util;
 
+import java.io.Serializable;
+
 /**
  * Big5 Personality Diagnostic
  * class: DiagnosticModel
  * Created by WindSekirun on 2015. 11. 10..
  */
-public class DiagnosticModel implements Consts {
+public class DiagnosticModel implements Consts, Serializable {
     int C;
     int A;
     int N;
