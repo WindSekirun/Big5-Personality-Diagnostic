@@ -32,6 +32,7 @@ import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
 import com.github.windsekirun.big5personalitydiagnostic.util.DiagnosticModel;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
 import com.github.windsekirun.big5personalitydiagnostic.util.ModelMarkerView;
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.NaraePreference;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,6 +67,7 @@ public class ResultActivity extends AppCompatActivity implements Consts {
 
     RadarChart radarChart;
     LineChart lineChart;
+    NaraePreference np;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +76,8 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         ButterKnife.bind(this);
 
         model = (DiagnosticModel) getIntent().getSerializableExtra(DiagModel);
-        isSpdier = getIntent().getBooleanExtra(WebShape, true);
+        np = new NaraePreference(this);
+        isSpdier = np.getValue(WebShape, true);
 
         toolbarSetting();
         if (isSpdier) {
@@ -126,9 +129,9 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         shapeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                np.put(WebShape, !isSpdier);
                 Intent i = new Intent(ResultActivity.this, ResultActivity.class);
                 i.putExtra(DiagModel, model);
-                i.putExtra(WebShape, !isSpdier);
                 startActivity(i);
                 overridePendingTransition(0, 0);
                 finish();
