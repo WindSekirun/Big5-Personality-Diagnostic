@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Big5 성격분석</string>
+
+    <string name="fragment_question_questionNum">문제</string>
+    <string name="fragment_question_radio1">매우 그렇다</string>
+    <string name="fragment_question_radio2">약간 그렇다</string>
+    <string name="fragment_question_radio3">보통이다</string>
+    <string name="fragment_question_radio4">약간 그렇지 않다</string>
+    <string name="fragment_question_radio5">매우 그렇지 않다</string>
+    <string name="fragment_question_prev">이전</string>
+    <string name="fragment_question_next">다음</string>
+    <string name="fragment_question_progress">진행률:</string>
+    <string name="activity_main_again_exit">한번 더 누르면 종료헙니다</string>
+    <string name="activity_main_questions">문제</string>
+    <string name="activity_main_github">Github 열기</string>
+    <string name="activity_main_license">오픈소스 라이센스</string>
+    <string name="activity_main_maker">누가 이 앱을 만들었나요?</string>
+    <string name="activity_main_help">도움말</string>
+    <string name="fragment_question_submit">전송</string>
+    <string name="util_storage_dialog">분석중..</string>
+    <string name="activity_result_title">분석 결과</string>
+    <string name="actvity_result_save">갤러리에 저장</string>
+    <string name="activity_result_share">공유</string>
+    <string name="activity_result_saved_gallery">갤러리에 저장하였습니다.</string>
+    <string name="activity_result_share_intent">결과 이미지 공유</string>
+    <string name="activity_result_gallery_scanned">저장소를 스캔했습니다.</string>
+    <string name="activity_maker_title">누가 이 앱을 만들었나요?</string>
+    <string name="activity_result_shape_change">모양 변경</string>
+
+    <string name="question01">1. 내 삶은 파티 자체이다.</string>
+    <string name="question02">2. 나는 다른 사람들의 감정을 측은히 여긴다.</string>
+    <string name="question03">3. 나는 맡은 일을 즉시 처리한다.</string>
+    <string name="question04">4. 나는 기분이 자주 바뀐다.</string>
+    <string name="question05">5. 나는 상상력이 풍부하다.</string>
+    <string name="question06">6. 나는 말을 많이 하지 않는다.</string>
+    <string name="question07">7. 나는 다른 사람들의 문제에 관심이 없다.</string>
+    <string name="question08">8. 나는 자주 물건을 제자리에 놓는 것을 잊어버린다.</string>
+    <string name="question09">9, 나는 대체로 느긋하고 여유롭다.</string>
+    <string name="question10">10. 나는 추상적인 개념들에 대해 흥미가 없다.</string>
+    <string name="question11">11. 나는 사람들을 만나면 여러 사람들과 말을 많이 한다.</string>
+    <string name="question12">12. 나는 다른 사람들의 감정을 느낀다.</string>
+    <string name="question13">13. 나는 질서를 좋아한다.</string>
+    <string name="question14">14. 나는 쉽게 흥분한다.</string>
+    <string name="question15">15. 나는 추상적인 개념들을 이해하는데 어려움을 느낀다.</string>
+    <string name="question16">16. 나는 나를 드러내지 않고 뒤쪽에 있는 편이다.</string>
+    <string name="question17">17. 나는 다른 사람들에게 관심이 있는 것은 아니다.</string>
+    <string name="question18">18. 내가 하는 일들은 실수투성이다.</string>
+    <string name="question19">19. 나는 좀처럼 우울함을 느끼지 않는다.</string>
+    <string name="question20">20. 나는 상상력이 풍부하지 않다.</string>
+
+
+</resources>

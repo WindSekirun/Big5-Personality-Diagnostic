@@ -8,6 +8,7 @@ import android.webkit.WebView;
 
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -17,7 +18,10 @@ import butterknife.ButterKnife;
  */
 @SuppressWarnings("ConstantConditions")
 public class MakerActivity extends AppCompatActivity {
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.licenseView)
+    WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,8 @@ public class MakerActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         toolbarSetting();
+
+        webView.loadUrl("file:///android_asset/maker.html");
     }
 
     @Override

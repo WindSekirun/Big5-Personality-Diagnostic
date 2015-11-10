@@ -14,11 +14,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.RadarChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.RadarData;
 import com.github.mikephil.charting.data.RadarDataSet;
 import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
@@ -46,13 +53,19 @@ public class ResultActivity extends AppCompatActivity implements Consts {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.chart)
-    RadarChart chart;
+    RelativeLayout chartView;
     @Bind(R.id.saveButton)
     Button saveButton;
     @Bind(R.id.shareButton)
     Button shareButton;
+    @Bind(R.id.shapeButton)
+    Button shapeButton;
 
     DiagnosticModel model;
+    boolean isSpdier = true;
+
+    RadarChart radarChart;
+    LineChart lineChart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,9 +74,14 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         ButterKnife.bind(this);
 
         model = (DiagnosticModel) getIntent().getSerializableExtra(DiagModel);
+        isSpdier = getIntent().getBooleanExtra(WebShape, true);
 
         toolbarSetting();
-        chartSetting();
+        if (isSpdier) {
+            radarChartSetting();
+        } else {
+            lineChartSetting();
+        }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,13 +89,19 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                 Date currentDate = new Date();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    chart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                    if (isSpdier)
+                        radarChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                    else
+                        lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                     Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
                     scanMediaProvider();
                 } else {
                     int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                        chart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                        if (isSpdier)
+                            radarChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                        else
+                            lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                         Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
                         scanMediaProvider();
                     } else {
@@ -92,7 +116,22 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveBitmap(chart.getChartBitmap());
+                if (isSpdier)
+                    saveBitmap(radarChart.getChartBitmap());
+                else
+                    saveBitmap(lineChart.getChartBitmap());
+            }
+        });
+
+        shapeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(ResultActivity.this, ResultActivity.class);
+                i.putExtra(DiagModel, model);
+                i.putExtra(WebShape, !isSpdier);
+                startActivity(i);
+                overridePendingTransition(0, 0);
+                finish();
             }
         });
     }
@@ -126,14 +165,15 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         startActivity(Intent.createChooser(intent, getString(R.string.activity_result_share_intent)));
     }
 
-    public void chartSetting() {
-        chart.setDescription("");
-        chart.setWebLineWidth(1.5f);
-        chart.setWebLineWidthInner(0.75f);
-        chart.setWebAlpha(200);
+    public void radarChartSetting() {
+        radarChart = new RadarChart(this);
+        radarChart.setDescription("");
+        radarChart.setWebLineWidth(1.5f);
+        radarChart.setWebLineWidthInner(0.75f);
+        radarChart.setWebAlpha(200);
 
         ModelMarkerView modelMarkerView = new ModelMarkerView(this, R.layout.custom_marker_view);
-        chart.setMarkerView(modelMarkerView);
+        radarChart.setMarkerView(modelMarkerView);
 
         String[] models = new String[]{"C", "A", "N", "O", "E"};
         int cnt = 5;
@@ -159,12 +199,76 @@ public class ResultActivity extends AppCompatActivity implements Consts {
 
         RadarData data = new RadarData(xVals, set1);
         data.setValueTextSize(0f);
-        chart.setRotationEnabled(false);
-        chart.setData(data);
-        chart.setSkipWebLineCount(4);
-        chart.invalidate();
+        radarChart.setRotationEnabled(false);
+        radarChart.setData(data);
+        radarChart.setSkipWebLineCount(4);
+        radarChart.invalidate();
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        radarChart.setLayoutParams(params);
+
+        if (chartView.getChildCount() != 0) chartView.removeAllViews();
+        chartView.addView(radarChart);
     }
 
+    public void lineChartSetting() {
+        lineChart = new LineChart(this);
+        lineChart.setDescription("");
+        lineChart.setTouchEnabled(true);
+        lineChart.setDragEnabled(false);
+        lineChart.setScaleEnabled(false);
+        lineChart.setPinchZoom(false);
+
+        ModelMarkerView mv = new ModelMarkerView(this, R.layout.custom_marker_view);
+
+        lineChart.setMarkerView(mv);
+
+        lineChart.getAxisRight().setEnabled(false);
+
+        ArrayList<String> xVals = new ArrayList<>();
+        String[] models = new String[]{"C", "A", "N", "O", "E"};
+
+        for (int i = 0; i < 5; i++) {
+            xVals.add(models[i % models.length]);
+        }
+
+        ArrayList<Entry> yVals = new ArrayList<>();
+
+        yVals.add(new Entry(model.getC(), 0));
+        yVals.add(new Entry(model.getA(), 1));
+        yVals.add(new Entry(model.getN(), 2));
+        yVals.add(new Entry(model.getO(), 3));
+        yVals.add(new Entry(model.getE(), 4));
+
+        LineDataSet set1 = new LineDataSet(yVals, "Big5");
+
+        set1.setColor(Material.getMaterialCyanColor(500));
+        set1.setCircleColor(Material.getMaterialCyanAccentColor(700));
+        set1.setLineWidth(2f);
+        set1.setCircleSize(4f);
+        set1.setDrawCircleHole(false);
+        set1.setValueTextSize(9f);
+        set1.setFillAlpha(65);
+        set1.setFillColor(Material.getMaterialCyanColor(500));
+
+        ArrayList<LineDataSet> dataSets = new ArrayList<>();
+        dataSets.add(set1);
+
+        LineData data = new LineData(xVals, dataSets);
+
+        lineChart.setData(data);
+
+        Legend l = lineChart.getLegend();
+        l.setForm(Legend.LegendForm.LINE);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        lineChart.setLayoutParams(params);
+
+        if (chartView.getChildCount() != 0) chartView.removeAllViews();
+        chartView.addView(lineChart);
+    }
+
+    @SuppressWarnings("ConstantConditions")
     public void toolbarSetting() {
         toolbar.setTitle(R.string.activity_result_title);
         toolbar.setTitleTextColor(Material.getWhite());
@@ -196,7 +300,10 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Date currentDate = new Date();
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-                    chart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                    if (isSpdier)
+                        radarChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                    else
+                        lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                     Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
                     scanMediaProvider();
                 }

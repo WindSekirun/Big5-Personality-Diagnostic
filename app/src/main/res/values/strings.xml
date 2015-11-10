@@ -14,7 +14,7 @@
     <string name="activity_main_questions">Questions</string>
     <string name="activity_main_github">Open to Github</string>
     <string name="activity_main_license">Open Source Libraries</string>
-    <string name="activity_main_maker">Make by WindSekirun</string>
+    <string name="activity_main_maker">Who make this app?</string>
     <string name="activity_main_help">Help Guide</string>
     <string name="fragment_question_submit">Submit</string>
     <string name="util_storage_dialog">Analyzing..</string>
@@ -46,5 +46,6 @@
     <string name="activity_result_share_intent">Share Result using..</string>
     <string name="activity_result_gallery_scanned">Scanned Gallery</string>
     <string name="activity_maker_title">Who make this App?</string>
+    <string name="activity_result_shape_change">Change Shape</string>
 
 </resources>
