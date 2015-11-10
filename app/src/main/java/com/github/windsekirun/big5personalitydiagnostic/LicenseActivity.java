@@ -8,6 +8,7 @@ import android.webkit.WebView;
 
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**
@@ -17,7 +18,9 @@ import butterknife.ButterKnife;
  */
 @SuppressWarnings("ConstantConditions")
 public class LicenseActivity extends AppCompatActivity {
+    @Bind(R.id.toolbar)
     Toolbar toolbar;
+    @Bind(R.id.licenseView)
     WebView webView;
 
     @Override
@@ -28,7 +31,7 @@ public class LicenseActivity extends AppCompatActivity {
 
         toolbarSetting();
 
-        webView.loadUrl("");
+        webView.loadUrl("file:///android_asset/license.html");
     }
 
     @Override
