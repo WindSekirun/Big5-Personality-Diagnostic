@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Big5 Personality Diagnostic</string>
 
-    <string name="fragment_question_questionNum">Question:</string>
+    <string name="fragment_question_questionNum">Question</string>
     <string name="fragment_question_radio1">VERY ACCURATE</string>
     <string name="fragment_question_radio2">MODERATELY ACCURATE</string>
     <string name="fragment_question_radio3">NEITHER INACCURATE NOT ACCURATE</string>
@@ -10,4 +10,26 @@
     <string name="fragment_question_prev">Prev</string>
     <string name="fragment_question_next">Next</string>
     <string name="fragment_question_progress">Progress:</string>
+
+    <string name="question01">1. I am the life of the party.</string>
+    <string name="question02">2. I sympathize with others\' feelings.</string>
+    <string name="question03">3. I get chores done right away.</string>
+    <string name="question04">4. I have frequent mood swings.</string>
+    <string name="question05">5. I have a vivid imagination.</string>
+    <string name="question06">6. I don't talk a lot.</string>
+    <string name="question07">7. I am not interested in other people\'s problems.</string>
+    <string name="question08">8. I often forgot to put things back in their proper place.</string>
+    <string name="question09">9, 1 am relaxed most of the time.</string>
+    <string name="question10">10. I am not interested in abstract ideas.</string>
+    <string name="question11">11. I talk to a lot of different people at parties.</string>
+    <string name="question12">12. I feel others\' emotions.</string>
+    <string name="question13">13. I like order.</string>
+    <string name="question14">14. I get upset easily.</string>
+    <string name="question15">15. I have difficulty understanding abstract ideas.</string>
+    <string name="question16">16. I kiaep in the background.</string>
+    <string name="question17">17. I am not really interested in others.</string>
+    <string name="question18">18. I make a mess of things.</string>
+    <string name="question19">19. I seldom feel blue.</string>
+    <string name="question20">20. I do not have a good imagination.</string>
+    <string name="activity_main_again_exit">Press again to exit.</string>
 </resources>
