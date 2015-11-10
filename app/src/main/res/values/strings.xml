@@ -10,6 +10,15 @@
     <string name="fragment_question_prev">Prev</string>
     <string name="fragment_question_next">Next</string>
     <string name="fragment_question_progress">Progress:</string>
+    <string name="activity_main_again_exit">Press again to exit.</string>
+    <string name="activity_main_questions">Questions</string>
+    <string name="activity_main_github">Open to Github</string>
+    <string name="activity_main_license">Open Source Libraries</string>
+    <string name="activity_main_maker">Make by WindSekirun</string>
+    <string name="activity_main_help">Help Guide</string>
+    <string name="fragment_question_submit">Submit</string>
+    <string name="util_storage_dialog">Analyzing..</string>
+    <string name="activity_result_title">Analyze Result</string>
 
     <string name="question01">1. I am the life of the party.</string>
     <string name="question02">2. I sympathize with others\' feelings.</string>
@@ -31,13 +40,10 @@
     <string name="question18">18. I make a mess of things.</string>
     <string name="question19">19. I seldom feel blue.</string>
     <string name="question20">20. I do not have a good imagination.</string>
-    <string name="activity_main_again_exit">Press again to exit.</string>
-    <string name="activity_main_questions">Questions</string>
-    <string name="activity_main_github">Open to Github</string>
-    <string name="activity_main_license">Open Source Libraries</string>
-    <string name="activity_main_maker">Make by WindSekirun</string>
-    <string name="activity_main_help">Help Guide</string>
-    <string name="fragment_question_submit">Submit</string>
-    <string name="util_storage_dialog">분석중입니다</string>
-    <string name="activity_result_title">분석 결과</string>
+    <string name="actvity_result_save">Save to Gallery</string>
+    <string name="activity_result_share">Share</string>
+    <string name="activity_result_saved_gallery">Saved to Gallery</string>
+    <string name="activity_result_share_intent">Share Result using..</string>
+    <string name="activity_result_gallery_scanned">Scanned Gallery</string>
+
 </resources>
