@@ -49,6 +49,9 @@
     <string name="question20">20. 나는 상상력이 풍부하지 않다.</string>
     <string name="fragment_question_notcheck">답변을 체크하세요.</string>
     <string name="storage_question_load_temped">임시 데이터를 로드했습니다.</string>
+    <string name="activity_main_exit_question">정말로 종료하시겠습니까?</string>
+    <string name="activity_main_ok">예</string>
+    <string name="activity_main_no">아니오</string>
 
 
 </resources>

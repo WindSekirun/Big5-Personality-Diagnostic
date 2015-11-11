@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,24 +84,26 @@ public class QuestionFragment extends Fragment implements Consts {
         questionProgress.setText(getString(R.string.fragment_question_progress) + questionPro);
 
 
-        switch (pair.second) {
-            case 1:
-                ((RadioButton) questionGroup.getChildAt(4)).setChecked(true);
-                break;
-            case 2:
-                ((RadioButton) questionGroup.getChildAt(3)).setChecked(true);
-                break;
-            case 3:
-                ((RadioButton) questionGroup.getChildAt(2)).setChecked(true);
-                break;
-            case 4:
-                ((RadioButton) questionGroup.getChildAt(1)).setChecked(true);
-                break;
-            case 5:
-                ((RadioButton) questionGroup.getChildAt(0)).setChecked(true);
-                break;
-            default:
-                break;
+        if (pair.second == 1 || pair.second == 2 || pair.second == 3 || pair.second == 4 || pair.second == 5) {
+            switch (pair.second) {
+                case 1:
+                    ((RadioButton) questionGroup.getChildAt(4)).setChecked(true);
+                    break;
+                case 2:
+                    ((RadioButton) questionGroup.getChildAt(3)).setChecked(true);
+                    break;
+                case 3:
+                    ((RadioButton) questionGroup.getChildAt(2)).setChecked(true);
+                    break;
+                case 4:
+                    ((RadioButton) questionGroup.getChildAt(1)).setChecked(true);
+                    break;
+                case 5:
+                    ((RadioButton) questionGroup.getChildAt(0)).setChecked(true);
+                    break;
+                default:
+                    break;
+            }
         }
 
         prevButton.setOnClickListener(new View.OnClickListener() {

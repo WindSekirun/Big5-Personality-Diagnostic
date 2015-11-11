@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
 import com.github.windsekirun.big5personalitydiagnostic.util.DiagnosticModel;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
@@ -33,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-    long backPressedTime;
     Drawer drawer;
     QuestionStorage storage;
 
@@ -135,20 +137,29 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        long tempTime = System.currentTimeMillis();
-        long intervalTime = tempTime - backPressedTime;
-        if (0 <= intervalTime && intervalTime <= 2000) {
-            if (isTempRequired) {
-                storage.savePairs();
-                NaraePreference np = new NaraePreference(this);
-                np.getValue(tempSave, true);
-            }
-            android.os.Process.killProcess(android.os.Process.myPid());
-        } else {
-            backPressedTime = tempTime;
-            Toast.makeText(this, R.string.activity_main_again_exit, Toast.LENGTH_SHORT).show();
-        }
+        new MaterialDialog.Builder(this)
+                .content(R.string.activity_main_exit_question)
+                .positiveText(R.string.activity_main_ok)
+                .negativeText(R.string.activity_main_no)
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                        if (isTempRequired) {
+                            storage.savePairs();
+                            Toast.makeText(MainActivity.this, R.string.storage_question_load_temped, Toast.LENGTH_SHORT).show();
+                            NaraePreference np = new NaraePreference(MainActivity.this);
+                            np.getValue(tempSave, true);
+                        }
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                    }
+                })
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     @Override
@@ -166,7 +177,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
     public void onNext(int nowNum, int checked) {
         storage.writePair(nowNum, checked);
         if (nowNum != 20) {
-            if (nowNum == 1) isTempRequired = true;
+            isTempRequired = true;
             fragmentCommit(nowNum + 1);
         } else {
             DiagnosticModel model = storage.analyze();

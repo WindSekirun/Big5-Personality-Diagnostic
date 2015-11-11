@@ -49,5 +49,8 @@
     <string name="activity_result_shape_change">Change Shape</string>
     <string name="fragment_question_notcheck">Check the Answer</string>
     <string name="storage_question_load_temped">Loaded Temp Data.</string>
+    <string name="activity_main_exit_question">Are you exit Big5?</string>
+    <string name="activity_main_ok">OK</string>
+    <string name="activity_main_no">NO</string>
 
 </resources>

@@ -1,7 +1,6 @@
 package com.github.windsekirun.big5personalitydiagnostic.util;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,32 +29,32 @@ public class QuestionStorage implements Consts {
     public QuestionStorage(Context c) {
         this.c = c;
         np = new NaraePreference(c);
-
         if (np.getValue(tempSave, false)) {
+            questionList = new NaraeMap<>();
             loadPairs();
         } else {
             if (questionList == null) {
                 questionList = new NaraeMap<>();
-                questionList.put(1, new QuestionPair(getQuestionTextByNum(1), 5));
-                questionList.put(2, new QuestionPair(getQuestionTextByNum(2), 5));
-                questionList.put(3, new QuestionPair(getQuestionTextByNum(3), 5));
-                questionList.put(4, new QuestionPair(getQuestionTextByNum(4), 5));
-                questionList.put(5, new QuestionPair(getQuestionTextByNum(5), 5));
-                questionList.put(6, new QuestionPair(getQuestionTextByNum(6), 5));
-                questionList.put(7, new QuestionPair(getQuestionTextByNum(7), 5));
-                questionList.put(8, new QuestionPair(getQuestionTextByNum(8), 5));
-                questionList.put(9, new QuestionPair(getQuestionTextByNum(9), 5));
-                questionList.put(10, new QuestionPair(getQuestionTextByNum(10), 5));
-                questionList.put(11, new QuestionPair(getQuestionTextByNum(11), 5));
-                questionList.put(12, new QuestionPair(getQuestionTextByNum(12), 5));
-                questionList.put(13, new QuestionPair(getQuestionTextByNum(13), 5));
-                questionList.put(14, new QuestionPair(getQuestionTextByNum(14), 5));
-                questionList.put(15, new QuestionPair(getQuestionTextByNum(15), 5));
-                questionList.put(16, new QuestionPair(getQuestionTextByNum(16), 5));
-                questionList.put(17, new QuestionPair(getQuestionTextByNum(17), 5));
-                questionList.put(18, new QuestionPair(getQuestionTextByNum(18), 5));
-                questionList.put(19, new QuestionPair(getQuestionTextByNum(19), 5));
-                questionList.put(20, new QuestionPair(getQuestionTextByNum(20), 5));
+                questionList.put(1, new QuestionPair(getQuestionTextByNum(1), 0));
+                questionList.put(2, new QuestionPair(getQuestionTextByNum(2), 0));
+                questionList.put(3, new QuestionPair(getQuestionTextByNum(3), 0));
+                questionList.put(4, new QuestionPair(getQuestionTextByNum(4), 0));
+                questionList.put(5, new QuestionPair(getQuestionTextByNum(5), 0));
+                questionList.put(6, new QuestionPair(getQuestionTextByNum(6), 0));
+                questionList.put(7, new QuestionPair(getQuestionTextByNum(7), 0));
+                questionList.put(8, new QuestionPair(getQuestionTextByNum(8), 0));
+                questionList.put(9, new QuestionPair(getQuestionTextByNum(9), 0));
+                questionList.put(10, new QuestionPair(getQuestionTextByNum(10), 0));
+                questionList.put(11, new QuestionPair(getQuestionTextByNum(11), 0));
+                questionList.put(12, new QuestionPair(getQuestionTextByNum(12), 0));
+                questionList.put(13, new QuestionPair(getQuestionTextByNum(13), 0));
+                questionList.put(14, new QuestionPair(getQuestionTextByNum(14), 0));
+                questionList.put(15, new QuestionPair(getQuestionTextByNum(15), 0));
+                questionList.put(16, new QuestionPair(getQuestionTextByNum(16), 0));
+                questionList.put(17, new QuestionPair(getQuestionTextByNum(17), 0));
+                questionList.put(18, new QuestionPair(getQuestionTextByNum(18), 0));
+                questionList.put(19, new QuestionPair(getQuestionTextByNum(19), 0));
+                questionList.put(20, new QuestionPair(getQuestionTextByNum(20), 0));
             }
         }
     }
