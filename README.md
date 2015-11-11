@@ -10,11 +10,11 @@
  * 그래프 모양 토글
 
 ## 다운로드
-[직접 다운로드](https://github.com/WindSekirun/Big5-Personality-Diagnostic/releases/tag/v.1.0.0)
+[직접 다운로드](https://github.com/WindSekirun/Big5-Personality-Diagnostic/releases/tag/v.1.0.1)
 
 ## 라이센스
 이 앱은 [MIT LICENSE](https://github.com/WindSekirun/Big5-Personality-Diagnostic/blob/master/LICENSE.MD) 를 따를 경우 오픈 소스 활용이 가능합니다.
 
 ## 리버전 내역
-* 2015. 11. 11 (수) v 1.0.0 개발: 로컬 저장 및 코드 최적화 및 인트로 액티비티
+* 2015. 11. 11 (수) v 1.0.0 개발: 로컬 저장 및 코드 최적화 및 인트로 애니메이션 구현
 * 2015. 11. 10 (화) v 1.0.0 개발: 초기 버전
