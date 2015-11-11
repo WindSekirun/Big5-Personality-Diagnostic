@@ -15,6 +15,7 @@ import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
 import com.github.windsekirun.big5personalitydiagnostic.util.DiagnosticModel;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
 import com.github.windsekirun.big5personalitydiagnostic.util.QuestionStorage;
+import com.github.windsekirun.big5personalitydiagnostic.util.narae.NaraePreference;
 import com.github.windsekirun.big5personalitydiagnostic.util.onFragmentChangeRequest;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
     long backPressedTime;
     Drawer drawer;
     QuestionStorage storage;
+
+    boolean isTempRequired = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
         Bundle bundle = new Bundle();
         bundle.putInt(QuestNum, num);
         bundle.putSerializable(QuestPair, storage.getPair(num));
-        bundle.putString(QuestProgress," " + num + " / " + Questions);
+        bundle.putString(QuestProgress, " " + num + " / " + Questions);
         questions.setArguments(bundle);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, questions).commit();
@@ -136,6 +139,11 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
         long tempTime = System.currentTimeMillis();
         long intervalTime = tempTime - backPressedTime;
         if (0 <= intervalTime && intervalTime <= 2000) {
+            if (isTempRequired) {
+                storage.savePairs();
+                NaraePreference np = new NaraePreference(this);
+                np.getValue(tempSave, true);
+            }
             android.os.Process.killProcess(android.os.Process.myPid());
         } else {
             backPressedTime = tempTime;
@@ -158,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
     public void onNext(int nowNum, int checked) {
         storage.writePair(nowNum, checked);
         if (nowNum != 20) {
+            if (nowNum == 1) isTempRequired = true;
             fragmentCommit(nowNum + 1);
         } else {
             DiagnosticModel model = storage.analyze();

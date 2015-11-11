@@ -16,4 +16,5 @@ public interface Consts {
     String QuestPair = "questPair";
     String DiagModel = "diagnosticModel";
     String WebShape = "webShape";
+    String tempSave = "tempSave";
 }

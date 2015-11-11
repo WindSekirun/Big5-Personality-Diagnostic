@@ -48,5 +48,6 @@
     <string name="activity_maker_title">Who make this App?</string>
     <string name="activity_result_shape_change">Change Shape</string>
     <string name="fragment_question_notcheck">Check the Answer</string>
+    <string name="storage_question_load_temped">Loaded Temp Data.</string>
 
 </resources>
