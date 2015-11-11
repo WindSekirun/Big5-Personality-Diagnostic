@@ -20,7 +20,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -98,7 +97,6 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                     else
                         lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                     Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
-                    scanMediaProvider();
                 } else {
                     int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
@@ -107,7 +105,6 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                         else
                             lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                         Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
-                        scanMediaProvider();
                     } else {
                         if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                             ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 72);
@@ -120,10 +117,17 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isSpdier)
-                    saveBitmap(radarChart.getChartBitmap());
-                else
-                    saveBitmap(lineChart.getChartBitmap());
+                int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    if (isSpdier)
+                        saveBitmap(radarChart.getChartBitmap());
+                    else
+                        saveBitmap(lineChart.getChartBitmap());
+                } else {
+                    if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 72);
+                    }
+                }
             }
         });
 
@@ -286,11 +290,6 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void scanMediaProvider() {
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.parse("file://" + Environment.getExternalStorageDirectory())));
-        Toast.makeText(ResultActivity.this, R.string.activity_result_gallery_scanned, Toast.LENGTH_SHORT).show();
-    }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -315,7 +314,6 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                     else
                         lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                     Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
-                    scanMediaProvider();
                 }
             }
         }

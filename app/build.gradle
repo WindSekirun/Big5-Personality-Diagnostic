@@ -45,5 +45,6 @@ dependencies {
         transitive = true
     }
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0' // (v4.4)
+    compile 'de.ruedigermoeller:fst:2.37'
 }
 

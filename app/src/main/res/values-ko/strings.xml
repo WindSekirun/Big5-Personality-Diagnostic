@@ -47,6 +47,7 @@
     <string name="question18">18. 내가 하는 일들은 실수투성이다.</string>
     <string name="question19">19. 나는 좀처럼 우울함을 느끼지 않는다.</string>
     <string name="question20">20. 나는 상상력이 풍부하지 않다.</string>
+    <string name="fragment_question_notcheck">Check the Answer</string>
 
 
 </resources>

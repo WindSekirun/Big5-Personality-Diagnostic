@@ -1,16 +1,25 @@
 package com.github.windsekirun.big5personalitydiagnostic.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.github.windsekirun.big5personalitydiagnostic.R;
 import com.github.windsekirun.big5personalitydiagnostic.util.narae.NaraeMap;
+
+import org.nustaq.serialization.FSTObjectInput;
+import org.nustaq.serialization.FSTObjectOutput;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Big5 Personality Diagnostic
  * class: QuestionStorage
  * Created by WindSekirun on 2015. 11. 10..
  */
+@SuppressWarnings("unchecked")
 public class QuestionStorage implements Consts {
     Context c;
     NaraeMap<Integer, QuestionPair> questionList;
@@ -40,6 +49,35 @@ public class QuestionStorage implements Consts {
             questionList.put(18, new QuestionPair(getQuestionTextByNum(18), 5));
             questionList.put(19, new QuestionPair(getQuestionTextByNum(19), 5));
             questionList.put(20, new QuestionPair(getQuestionTextByNum(20), 5));
+        }
+    }
+
+    public void savePairs() {
+        try {
+            FileOutputStream fileOutputStream = c.openFileOutput("naraepair.db", Context.MODE_PRIVATE);
+            FSTObjectOutput objectOutputStream = new FSTObjectOutput(fileOutputStream);
+            objectOutputStream.writeObject(questionList);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+            fileOutputStream.flush();
+            fileOutputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadPairs() {
+        FileInputStream fileInputStream;
+        FSTObjectInput objectInputStream;
+
+        try {
+            fileInputStream = c.openFileInput("naraepair.db");
+            objectInputStream = new FSTObjectInput(fileInputStream);
+            questionList = (NaraeMap<Integer, QuestionPair>) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 

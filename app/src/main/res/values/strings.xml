@@ -47,5 +47,6 @@
     <string name="activity_result_gallery_scanned">Scanned Gallery</string>
     <string name="activity_maker_title">Who make this App?</string>
     <string name="activity_result_shape_change">Change Shape</string>
+    <string name="fragment_question_notcheck">Check the Answer</string>
 
 </resources>

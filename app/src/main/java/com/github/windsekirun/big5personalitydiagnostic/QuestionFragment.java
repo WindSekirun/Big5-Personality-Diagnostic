@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
@@ -101,7 +102,6 @@ public class QuestionFragment extends Fragment implements Consts {
                 ((RadioButton) questionGroup.getChildAt(0)).setChecked(true);
                 break;
             default:
-                ((RadioButton) questionGroup.getChildAt(0)).setChecked(true);
                 break;
         }
 
@@ -130,6 +130,9 @@ public class QuestionFragment extends Fragment implements Consts {
                         break;
                     case R.id.questionRadio5:
                         listener.onNext(questionNum, 1);
+                        break;
+                    default:
+                        Toast.makeText(getActivity(), R.string.fragment_question_notcheck, Toast.LENGTH_SHORT).show();
                         break;
                 }
             }
