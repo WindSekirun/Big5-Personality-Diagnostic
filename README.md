@@ -8,9 +8,15 @@
  * 분석 결과 갤러리 저장
  * 분석 결과 공유
  * 그래프 모양 토글
+ * CANOE가 무엇인가요?
+
+## 지원
+ * 안드로이드 버전 4.0.4 ~ 6.0 
+ * 앱 권한 적용
+ * 메테리얼 디자인 적용
 
 ## 다운로드
-[직접 다운로드](https://github.com/WindSekirun/Big5-Personality-Diagnostic/releases/tag/v.1.0.1)
+[직접 다운로드](https://github.com/WindSekirun/Big5-Personality-Diagnostic/releases/tag/v.1.1.0)
 
 ## 라이센스
 이 앱은 [MIT LICENSE](https://github.com/WindSekirun/Big5-Personality-Diagnostic/blob/master/LICENSE.MD) 를 따를 경우 오픈 소스 활용이 가능합니다.
