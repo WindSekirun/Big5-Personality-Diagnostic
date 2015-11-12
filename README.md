@@ -16,7 +16,7 @@
  * 메테리얼 디자인 적용
 
 ## 다운로드
-[직접 다운로드](https://github.com/WindSekirun/Big5-Personality-Diagnostic/releases/tag/v.1.1.0)
+[직접 다운로드](https://github.com/WindSekirun/Big5-Personality-Diagnostic/releases/tag/v.1.1.1)
 
 ## 라이센스
 이 앱은 [MIT LICENSE](https://github.com/WindSekirun/Big5-Personality-Diagnostic/blob/master/LICENSE.MD) 를 따를 경우 오픈 소스 활용이 가능합니다.
