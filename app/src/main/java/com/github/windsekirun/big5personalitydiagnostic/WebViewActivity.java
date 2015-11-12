@@ -1,13 +1,12 @@
 package com.github.windsekirun.big5personalitydiagnostic;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.WindowManager;
 import android.webkit.WebView;
 
+import com.github.windsekirun.big5personalitydiagnostic.util.Consts;
 import com.github.windsekirun.big5personalitydiagnostic.util.Material;
 
 import butterknife.Bind;
@@ -15,15 +14,17 @@ import butterknife.ButterKnife;
 
 /**
  * Big5 Personality Diagnostic
- * class: CANOEActivity
- * Created by WindSekirun on 2015. 11. 10..
+ * class: WebViewActivity
+ * Created by WindSekirun on 2015. 11. 12..
  */
-@SuppressWarnings("ConstantConditions")
-public class CANOEActivity extends AppCompatActivity {
+public class WebViewActivity extends AppCompatActivity implements Consts {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
     @Bind(R.id.licenseView)
     WebView webView;
+
+    String title;
+    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,13 +34,10 @@ public class CANOEActivity extends AppCompatActivity {
 
         toolbarSetting();
 
-        webView.loadUrl("https://ko.wikipedia.org/wiki/5가지_성격_특성_요소");
+        title = getIntent().getStringExtra(webViewTitie);
+        url = getIntent().getStringExtra(webViewUrl);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            getWindow().setNavigationBarColor(Material.getMaterialCyanColor(700));
-        }
+        webView.loadUrl(url);
     }
 
     @Override
@@ -65,7 +63,7 @@ public class CANOEActivity extends AppCompatActivity {
     }
 
     public void toolbarSetting() {
-        toolbar.setTitle(R.string.activity_CANOE_title);
+        toolbar.setTitle(title);
         toolbar.setTitleTextColor(Material.getWhite());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

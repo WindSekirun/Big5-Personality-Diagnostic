@@ -18,4 +18,7 @@ public interface Consts {
     String WebShape = "webShape";
     String savedId = "savedId";
     String tempSave = "tempSave";
+
+    String webViewTitie = "webViewTitle";
+    String webViewUrl = "webViewUrl";
 }

@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.windsekirun.big5personalitydiagnostic">
 
-    <uses-permission android:name="ANDROID.PERMISSION.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="ANDROID.PERMISSION.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="ANDROID.PERMISSION.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -32,19 +32,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".LicenseActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".MakerActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".HelpActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".CANOEActivity"
+            android:name=".WebViewActivity"
             android:screenOrientation="portrait" />
     </application>
 

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -125,19 +126,25 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                                 drawer.setSelection(0);
                                 break;
                             case 4:
-                                Intent license = new Intent(MainActivity.this, LicenseActivity.class);
+                                Intent license = new Intent(MainActivity.this, WebViewActivity.class);
+                                license.putExtra(webViewUrl, "file:///android_asset/license.html");
+                                license.putExtra(webViewTitie, getString(R.string.activity_main_license));
                                 startActivity(license);
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
                             case 5:
-                                Intent maker = new Intent(MainActivity.this, MakerActivity.class);
+                                Intent maker = new Intent(MainActivity.this, WebViewActivity.class);
+                                maker.putExtra(webViewUrl, "file:///android_asset/maker.html");
+                                maker.putExtra(webViewTitie, getString(R.string.activity_main_maker));
                                 startActivity(maker);
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
                             case 6:
-                                Intent help = new Intent(MainActivity.this, HelpActivity.class);
+                                Intent help = new Intent(MainActivity.this, WebViewActivity.class);
+                                help.putExtra(webViewUrl, "file:///android_asset/help.html");
+                                help.putExtra(webViewTitie, getString(R.string.activity_main_help));
                                 startActivity(help);
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
