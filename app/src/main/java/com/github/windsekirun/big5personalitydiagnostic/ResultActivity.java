@@ -3,9 +3,12 @@ package com.github.windsekirun.big5personalitydiagnostic;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -207,19 +210,23 @@ public class ResultActivity extends AppCompatActivity implements Consts {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                if (saveId.isChecked()) np.put(savedId, idBox.getText().toString());
+                if (isOnline()) {
+                    if (saveId.isChecked()) np.put(savedId, idBox.getText().toString());
 
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    new sendMailing().execute();
-                } else {
-                    int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                         new sendMailing().execute();
                     } else {
-                        if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                            ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 74);
+                        int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                            new sendMailing().execute();
+                        } else {
+                            if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                                ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 74);
+                            }
                         }
                     }
+                } else {
+                    Toast.makeText(ResultActivity.this, "Check Network State", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -369,6 +376,12 @@ public class ResultActivity extends AppCompatActivity implements Consts {
 
         if (chartView.getChildCount() != 0) chartView.removeAllViews();
         chartView.addView(lineChart);
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
     @SuppressWarnings("ConstantConditions")
