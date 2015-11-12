@@ -87,15 +87,11 @@ public class ResultActivity extends AppCompatActivity implements Consts {
     Button saveButton;
     @Bind(R.id.shareButton)
     Button shareButton;
-    @Bind(R.id.shapeButton)
-    Button shapeButton;
     @Bind(R.id.mailButton)
     Button mailButton;
 
     DiagnosticModel model;
-    boolean isSpdier = true;
 
-    RadarChart radarChart;
     LineChart lineChart;
     NaraePreference np;
     MaterialDialog loadingDialog;
@@ -109,14 +105,10 @@ public class ResultActivity extends AppCompatActivity implements Consts {
 
         model = (DiagnosticModel) getIntent().getSerializableExtra(DiagModel);
         np = new NaraePreference(this);
-        isSpdier = np.getValue(WebShape, true);
 
         toolbarSetting();
-        if (isSpdier) {
-            radarChartSetting();
-        } else {
-            lineChartSetting();
-        }
+        lineChartSetting();
+
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,18 +116,12 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                 Date currentDate = new Date();
                 DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    if (isSpdier)
-                        radarChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
-                    else
-                        lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                    lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                     Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
                 } else {
                     int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                        if (isSpdier)
-                            radarChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
-                        else
-                            lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                        lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                         Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
                     } else {
                         if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -150,35 +136,17 @@ public class ResultActivity extends AppCompatActivity implements Consts {
             @Override
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-                    if (isSpdier)
-                        shareBitmap(saveBitmap(radarChart.getChartBitmap()).first);
-                    else
-                        shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
+                    shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
                 } else {
                     int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
                     if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-                        if (isSpdier)
-                            shareBitmap(saveBitmap(radarChart.getChartBitmap()).first);
-                        else
-                            shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
+                        shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
                     } else {
                         if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                             ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 74);
                         }
                     }
                 }
-            }
-        });
-
-        shapeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                np.put(WebShape, !isSpdier);
-                Intent i = new Intent(ResultActivity.this, ResultActivity.class);
-                i.putExtra(DiagModel, model);
-                startActivity(i);
-                overridePendingTransition(0, 0);
-                finish();
             }
         });
 
@@ -305,63 +273,6 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         return yVals3;
     }
 
-    public void radarChartSetting() {
-        radarChart = new RadarChart(this);
-        radarChart.setDescription("");
-        radarChart.setWebLineWidth(1.5f);
-        radarChart.setWebLineWidthInner(0.75f);
-        radarChart.setWebAlpha(200);
-
-        ModelMarkerView modelMarkerView = new ModelMarkerView(this, R.layout.custom_marker_view);
-        radarChart.setMarkerView(modelMarkerView);
-
-        String[] models = new String[]{"C", "A", "N", "O", "E"};
-        int cnt = 5;
-
-        ArrayList<Entry> yVals1 = getY1();
-        ArrayList<Entry> yVals2 = getY2();
-        ArrayList<Entry> yVals3 = getY3();
-
-        ArrayList<String> xVals = new ArrayList<>();
-
-        for (int i = 0; i < cnt; i++)
-            xVals.add(models[i % models.length]);
-
-        RadarDataSet set1 = new RadarDataSet(yVals1, "Big5");
-        set1.setColor(Material.getMaterialCyanColor(300));
-        set1.setDrawFilled(true);
-        set1.setValueTextSize(0f);
-        set1.setLineWidth(2f);
-
-        RadarDataSet set2 = new RadarDataSet(yVals2, "Norm");
-        set2.setColor(Material.getMaterialOrangeColor(300));
-        set2.setValueTextSize(0f);
-        set2.setLineWidth(2f);
-
-        RadarDataSet set3 = new RadarDataSet(yVals3, "");
-        set3.setValueTextSize(0f);
-        set3.setLineWidth(0f);
-        set3.setColor(0x00000000);
-
-        ArrayList<RadarDataSet> sets = new ArrayList<>();
-        sets.add(set1);
-        sets.add(set2);
-        sets.add(set3);
-
-        RadarData data = new RadarData(xVals, sets);
-        data.setValueTextSize(0f);
-        radarChart.setRotationEnabled(false);
-        radarChart.setData(data);
-        radarChart.setSkipWebLineCount(4);
-        radarChart.invalidate();
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        radarChart.setLayoutParams(params);
-
-        if (chartView.getChildCount() != 0) chartView.removeAllViews();
-        chartView.addView(radarChart);
-    }
-
     public void lineChartSetting() {
         lineChart = new LineChart(this);
         lineChart.setDescription("");
@@ -467,18 +378,12 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Date currentDate = new Date();
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
-                    if (isSpdier)
-                        radarChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
-                    else
-                        lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
+                    lineChart.saveToGallery("Big5 - " + dateFormat.format(currentDate), 100);
                     Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
                 }
             }
             case 74: {
-                if (isSpdier)
-                    shareBitmap(saveBitmap(radarChart.getChartBitmap()).first);
-                else
-                    shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
+                shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
             }
             case 765: {
                 new sendMailing().execute();
@@ -500,7 +405,6 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         String idText;
         String passText;
 
-        Bitmap rader = radarChart.getChartBitmap();
         Bitmap line = lineChart.getChartBitmap();
 
         @Override
@@ -530,7 +434,7 @@ public class ResultActivity extends AppCompatActivity implements Consts {
 
                     Multipart multipart = new MimeMultipart();
 
-                    Pair<File, String> pairs = (isSpdier) ? saveBitmap(rader) : saveBitmap(line);
+                    Pair<File, String> pairs = saveBitmap(line);
 
                     File file = pairs.first;
                     String fileName = pairs.second;

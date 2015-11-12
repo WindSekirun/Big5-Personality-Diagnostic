@@ -60,18 +60,6 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/activity_result_shape_change"
-                android:id="@+id/shapeButton"
-                android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/shareButton"
-                android:layout_toStartOf="@+id/shareButton"
-                android:background="#00000000"
-                android:textColor="#ffffff"
-                android:layout_weight="1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:text="@string/activity_result_mail"
                 android:id="@+id/mailButton"
                 android:layout_alignParentTop="true"
