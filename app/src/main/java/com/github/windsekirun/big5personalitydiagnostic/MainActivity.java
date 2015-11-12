@@ -28,6 +28,8 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
+import java.util.Locale;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -106,7 +108,8 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 */
-                                String url2 = "https://ko.wikipedia.org/wiki/5가지_성격_특성_요소";
+                                String locale = Locale.getDefault().getLanguage();
+                                String url2 = (locale.equals("ko"))? "https://ko.wikipedia.org/wiki/5가지_성격_특성_요소" : "https://en.wikipedia.org/wiki/Big_Five_personality_traits";
                                 Intent canoe = new Intent(Intent.ACTION_VIEW);
                                 canoe.setData(Uri.parse(url2));
                                 startActivity(canoe);
