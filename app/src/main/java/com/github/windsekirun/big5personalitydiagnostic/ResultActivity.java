@@ -275,6 +275,36 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         return new Pair<>(file, file.getPath());
     }
 
+    public ArrayList<Entry> getY1() {
+        ArrayList<Entry> yVals1 = new ArrayList<>();
+        yVals1.add(new Entry(model.getC(), 0));
+        yVals1.add(new Entry(model.getA(), 1));
+        yVals1.add(new Entry(model.getN(), 2));
+        yVals1.add(new Entry(model.getO(), 3));
+        yVals1.add(new Entry(model.getE(), 4));
+        return yVals1;
+    }
+
+    public ArrayList<Entry> getY2() {
+        ArrayList<Entry> yVals2 = new ArrayList<>();
+        yVals2.add(new Entry(13, 0));
+        yVals2.add(new Entry(15, 1));
+        yVals2.add(new Entry(20, 2));
+        yVals2.add(new Entry(17, 3));
+        yVals2.add(new Entry(8, 4));
+        return yVals2;
+    }
+
+    public ArrayList<Entry> getY3() {
+        ArrayList<Entry> yVals3 = new ArrayList<>();
+        yVals3.add(new Entry(20, 0));
+        yVals3.add(new Entry(20, 1));
+        yVals3.add(new Entry(20, 2));
+        yVals3.add(new Entry(20, 3));
+        yVals3.add(new Entry(20, 4));
+        return yVals3;
+    }
+
     public void radarChartSetting() {
         radarChart = new RadarChart(this);
         radarChart.setDescription("");
@@ -288,13 +318,9 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         String[] models = new String[]{"C", "A", "N", "O", "E"};
         int cnt = 5;
 
-        ArrayList<Entry> yVals1 = new ArrayList<>();
-
-        yVals1.add(new Entry(model.getC(), 0));
-        yVals1.add(new Entry(model.getA(), 1));
-        yVals1.add(new Entry(model.getN(), 2));
-        yVals1.add(new Entry(model.getO(), 3));
-        yVals1.add(new Entry(model.getE(), 4));
+        ArrayList<Entry> yVals1 = getY1();
+        ArrayList<Entry> yVals2 = getY2();
+        ArrayList<Entry> yVals3 = getY3();
 
         ArrayList<String> xVals = new ArrayList<>();
 
@@ -307,7 +333,22 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         set1.setValueTextSize(0f);
         set1.setLineWidth(2f);
 
-        RadarData data = new RadarData(xVals, set1);
+        RadarDataSet set2 = new RadarDataSet(yVals2, "Norm");
+        set2.setColor(Material.getMaterialOrangeColor(300));
+        set2.setValueTextSize(0f);
+        set2.setLineWidth(2f);
+
+        RadarDataSet set3 = new RadarDataSet(yVals3, "");
+        set3.setValueTextSize(0f);
+        set3.setLineWidth(0f);
+        set3.setColor(0x00000000);
+
+        ArrayList<RadarDataSet> sets = new ArrayList<>();
+        sets.add(set3);
+        sets.add(set2);
+        sets.add(set1);
+
+        RadarData data = new RadarData(xVals, sets);
         data.setValueTextSize(0f);
         radarChart.setRotationEnabled(false);
         radarChart.setData(data);
@@ -342,16 +383,11 @@ public class ResultActivity extends AppCompatActivity implements Consts {
             xVals.add(models[i % models.length]);
         }
 
-        ArrayList<Entry> yVals = new ArrayList<>();
+        ArrayList<Entry> yVals1 = getY1();
+        ArrayList<Entry> yVals2 = getY2();
+        ArrayList<Entry> yVals3 = getY3();
 
-        yVals.add(new Entry(model.getC(), 0));
-        yVals.add(new Entry(model.getA(), 1));
-        yVals.add(new Entry(model.getN(), 2));
-        yVals.add(new Entry(model.getO(), 3));
-        yVals.add(new Entry(model.getE(), 4));
-
-        LineDataSet set1 = new LineDataSet(yVals, "Big5");
-
+        LineDataSet set1 = new LineDataSet(yVals1, "Big5");
         set1.setColor(Material.getMaterialCyanColor(500));
         set1.setCircleColor(Material.getMaterialCyanAccentColor(700));
         set1.setLineWidth(2f);
@@ -361,10 +397,30 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         set1.setFillAlpha(65);
         set1.setFillColor(Material.getMaterialCyanColor(500));
 
-        ArrayList<LineDataSet> dataSets = new ArrayList<>();
-        dataSets.add(set1);
+        LineDataSet set2 = new LineDataSet(yVals2, "Norm");
+        set2.setColor(Material.getMaterialOrangeColor(500));
+        set2.setCircleColor(Material.getMaterialOrangeAccentColor(700));
+        set2.setLineWidth(2f);
+        set2.setCircleSize(4f);
+        set2.setValueTextSize(9f);
+        set2.setFillAlpha(65);
+        set2.setFillColor(Material.getMaterialCyanColor(500));
 
-        LineData data = new LineData(xVals, dataSets);
+        LineDataSet set3 = new LineDataSet(yVals3, "");
+        set3.setLineWidth(0f);
+        set3.setCircleSize(0f);
+        set3.setValueTextSize(0f);
+        set3.setFillAlpha(0);
+        set3.setColor(0x00000000);
+        set3.setCircleColor(0x00000000);
+        set3.setFillColor(0x00000000);
+
+        ArrayList<LineDataSet> sets = new ArrayList<>();
+        sets.add(set3);
+        sets.add(set2);
+        sets.add(set1);
+
+        LineData data = new LineData(xVals, sets);
 
         lineChart.setData(data);
 
