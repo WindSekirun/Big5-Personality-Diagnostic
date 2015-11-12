@@ -344,9 +344,9 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         set3.setColor(0x00000000);
 
         ArrayList<RadarDataSet> sets = new ArrayList<>();
-        sets.add(set3);
-        sets.add(set2);
         sets.add(set1);
+        sets.add(set2);
+        sets.add(set3);
 
         RadarData data = new RadarData(xVals, sets);
         data.setValueTextSize(0f);
@@ -416,9 +416,9 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         set3.setFillColor(0x00000000);
 
         ArrayList<LineDataSet> sets = new ArrayList<>();
-        sets.add(set3);
-        sets.add(set2);
         sets.add(set1);
+        sets.add(set2);
+        sets.add(set3);
 
         LineData data = new LineData(xVals, sets);
 
