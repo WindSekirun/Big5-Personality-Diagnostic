@@ -287,11 +287,11 @@ public class ResultActivity extends AppCompatActivity implements Consts {
 
     public ArrayList<Entry> getY2() {
         ArrayList<Entry> yVals2 = new ArrayList<>();
-        yVals2.add(new Entry(13, 0));
-        yVals2.add(new Entry(15, 1));
-        yVals2.add(new Entry(20, 2));
-        yVals2.add(new Entry(17, 3));
-        yVals2.add(new Entry(8, 4));
+        yVals2.add(new Entry(14, 0));
+        yVals2.add(new Entry(16, 1));
+        yVals2.add(new Entry(10, 2));
+        yVals2.add(new Entry(15, 3));
+        yVals2.add(new Entry(13, 4));
         return yVals2;
     }
 
@@ -500,8 +500,8 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         String idText;
         String passText;
 
-        Bitmap rader;
-        Bitmap line;
+        Bitmap rader = radarChart.getChartBitmap();
+        Bitmap line = lineChart.getChartBitmap();
 
         @Override
         protected Integer doInBackground(Void... params) {
@@ -563,9 +563,6 @@ public class ResultActivity extends AppCompatActivity implements Consts {
 
             idText = idBox.getText().toString();
             passText = passwordBox.getText().toString();
-
-            rader = radarChart.getChartBitmap();
-            line = lineChart.getChartBitmap();
         }
 
         @Override

@@ -61,6 +61,7 @@
     <string name="activity_result_message_1">아이디나 비밀번호를 확인하세요.</string>
     <string name="activity_result_message_2">에러가 발생했습니다. 잠시만 기다려주세요.</string>
     <string name="activity_result_message_0">이메일을 보냈습니다.</string>
+    <string name="activity_CANOE_title">CANOE가 무엇인가요?</string>
 
 
 </resources>

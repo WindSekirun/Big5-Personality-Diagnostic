@@ -42,6 +42,10 @@
         <activity
             android:name=".HelpActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".CANOEActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

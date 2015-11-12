@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
     public void drawerSetting() {
         PrimaryDrawerItem question = new PrimaryDrawerItem().withName(R.string.activity_main_questions)
                 .withIcon(new IconDrawable(this, FontAwesomeIcons.fa_question_circle).color(0xff727272));
+        PrimaryDrawerItem canoe = new PrimaryDrawerItem().withName(R.string.activity_CANOE_title)
+                .withIcon(new IconDrawable(this, FontAwesomeIcons.fa_wikipedia_w).color(0xff727272));
         PrimaryDrawerItem github = new PrimaryDrawerItem().withName(R.string.activity_main_github)
                 .withIcon(new IconDrawable(this, FontAwesomeIcons.fa_github).color(0xff727272));
         PrimaryDrawerItem license = new PrimaryDrawerItem().withName(R.string.activity_main_license)
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggle(true)
                 .withToolbar(toolbar)
-                .addDrawerItems(question, new DividerDrawerItem(), github, license, maker, help)
+                .addDrawerItems(question, canoe, new DividerDrawerItem(), github, license, maker, help)
                 .withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
                     @Override
                     public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
@@ -97,7 +99,21 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                             case 0:
                                 drawer.setSelection(0);
                                 break;
-                            case 2:
+                            case 1:
+                                /* Now, WebView Engine current issue ERR_CACHE_MISS, so i intent to web directly.
+                                Intent canoe = new Intent(MainActivity.this, CANOEActivity.class);
+                                startActivity(canoe);
+                                overridePendingTransition(0, 0);
+                                drawer.setSelection(0);
+                                */
+                                String url2 = "https://ko.wikipedia.org/wiki/5가지_성격_특성_요소";
+                                Intent canoe = new Intent(Intent.ACTION_VIEW);
+                                canoe.setData(Uri.parse(url2));
+                                startActivity(canoe);
+                                overridePendingTransition(0, 0);
+                                drawer.setSelection(0);
+                                break;
+                            case 3:
                                 String url = "https://github.com/WindSekirun/Big5-Personality-Diagnostic";
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(url));
@@ -105,19 +121,19 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
-                            case 3:
+                            case 4:
                                 Intent license = new Intent(MainActivity.this, LicenseActivity.class);
                                 startActivity(license);
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
-                            case 4:
+                            case 5:
                                 Intent maker = new Intent(MainActivity.this, MakerActivity.class);
                                 startActivity(maker);
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
-                            case 5:
+                            case 6:
                                 Intent help = new Intent(MainActivity.this, HelpActivity.class);
                                 startActivity(help);
                                 overridePendingTransition(0, 0);

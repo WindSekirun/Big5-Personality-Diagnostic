@@ -61,5 +61,6 @@
     <string name="activity_result_message_1">Enter ID or Password</string>
     <string name="activity_result_message_2">Some Error Expected.</string>
     <string name="activity_result_message_0">Succeed send Email.</string>
+    <string name="activity_CANOE_title">What\'s the CANOE?</string>
 
 </resources>
