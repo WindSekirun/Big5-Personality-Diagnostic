@@ -1,25 +1,35 @@
 package com.github.windsekirun.big5personalitydiagnostic;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -41,6 +51,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Properties;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -61,6 +86,8 @@ public class ResultActivity extends AppCompatActivity implements Consts {
     Button shareButton;
     @Bind(R.id.shapeButton)
     Button shapeButton;
+    @Bind(R.id.mailButton)
+    Button mailButton;
 
     DiagnosticModel model;
     boolean isSpdier = true;
@@ -68,6 +95,8 @@ public class ResultActivity extends AppCompatActivity implements Consts {
     RadarChart radarChart;
     LineChart lineChart;
     NaraePreference np;
+    MaterialDialog loadingDialog;
+    EditText idBox, passwordBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,15 +146,22 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                     if (isSpdier)
-                        saveBitmap(radarChart.getChartBitmap());
+                        shareBitmap(saveBitmap(radarChart.getChartBitmap()).first);
                     else
-                        saveBitmap(lineChart.getChartBitmap());
+                        shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
                 } else {
-                    if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 72);
+                    int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                        if (isSpdier)
+                            shareBitmap(saveBitmap(radarChart.getChartBitmap()).first);
+                        else
+                            shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
+                    } else {
+                        if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 74);
+                        }
                     }
                 }
             }
@@ -143,6 +179,13 @@ public class ResultActivity extends AppCompatActivity implements Consts {
             }
         });
 
+        mailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showMailDialog();
+            }
+        });
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -150,7 +193,61 @@ public class ResultActivity extends AppCompatActivity implements Consts {
         }
     }
 
-    public void saveBitmap(Bitmap bitmap) {
+    public void showMailDialog() {
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        @SuppressLint("InflateParams") View v = getLayoutInflater().inflate(R.layout.dialog_mail_address, null);
+        TextView saveButton = (TextView) v.findViewById(R.id.saveButton);
+        TextView exitButton = (TextView) v.findViewById(R.id.exitButton);
+        final CheckBox saveId = (CheckBox) v.findViewById(R.id.saveId);
+        idBox = (EditText) v.findViewById(R.id.mail_email);
+        passwordBox = (EditText) v.findViewById(R.id.mail_password);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                if (saveId.isChecked()) np.put(savedId, idBox.getText().toString());
+
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+                    new sendMailing().execute();
+                } else {
+                    int permissionCheck = ContextCompat.checkSelfPermission(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                    if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+                        new sendMailing().execute();
+                    } else {
+                        if (!ActivityCompat.shouldShowRequestPermissionRationale(ResultActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                            ActivityCompat.requestPermissions(ResultActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 74);
+                        }
+                    }
+                }
+            }
+        });
+
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setContentView(v);
+        dialog.show();
+    }
+
+    public void shareBitmap(File file) {
+        Uri uri = Uri.fromFile(file);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/*");
+
+        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
+        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, getString(R.string.activity_result_share_intent)));
+    }
+
+    @SuppressWarnings("ResultOfMethodCallIgnored")
+    public Pair<File, String> saveBitmap(Bitmap bitmap) {
         Date currentDate = new Date();
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
         String file_path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/big5-diagnostic";
@@ -168,15 +265,7 @@ public class ResultActivity extends AppCompatActivity implements Consts {
             e.printStackTrace();
         }
 
-        Uri uri = Uri.fromFile(file);
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_SEND);
-        intent.setType("image/*");
-
-        intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "");
-        intent.putExtra(android.content.Intent.EXTRA_TEXT, "");
-        intent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(intent, getString(R.string.activity_result_share_intent)));
+        return new Pair<>(file, file.getPath());
     }
 
     public void radarChartSetting() {
@@ -303,7 +392,7 @@ public class ResultActivity extends AppCompatActivity implements Consts {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
         switch (requestCode) {
             case 72: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -316,6 +405,15 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                     Toast.makeText(ResultActivity.this, R.string.activity_result_saved_gallery, Toast.LENGTH_SHORT).show();
                 }
             }
+            case 74: {
+                if (isSpdier)
+                    shareBitmap(saveBitmap(radarChart.getChartBitmap()).first);
+                else
+                    shareBitmap(saveBitmap(lineChart.getChartBitmap()).first);
+            }
+            case 765: {
+                new sendMailing().execute();
+            }
         }
     }
 
@@ -327,5 +425,94 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public class sendMailing extends AsyncTask<Void, Void, Integer> {
+        String idText;
+        String passText;
+
+        Bitmap rader;
+        Bitmap line;
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            if (!idText.isEmpty() && !passText.isEmpty()) {
+                Properties props = new Properties();
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.starttls.enable", "true");
+                props.put("mail.smtp.host", "smtp.gmail.com");
+                props.put("mail.smtp.port", "587");
+
+                Session session = Session.getInstance(props,
+                        new javax.mail.Authenticator() {
+                            protected PasswordAuthentication getPasswordAuthentication() {
+                                return new PasswordAuthentication(idText, passText);
+                            }
+                        });
+
+                try {
+                    Message message = new MimeMessage(session);
+                    message.setFrom(new InternetAddress(idText));
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("windsekirun@gmail.com"));
+                    message.setSubject("[Big5] Sending Data from " + idText);
+                    message.setText("Sent by Big5 Application");
+
+                    MimeBodyPart messageBodyPart = new MimeBodyPart();
+
+                    Multipart multipart = new MimeMultipart();
+
+                    Pair<File, String> pairs = (isSpdier) ? saveBitmap(rader) : saveBitmap(line);
+
+                    File file = pairs.first;
+                    String fileName = pairs.second;
+                    DataSource source = new FileDataSource(file);
+                    messageBodyPart.setDataHandler(new DataHandler(source));
+                    messageBodyPart.setFileName(fileName);
+                    multipart.addBodyPart(messageBodyPart);
+
+                    message.setContent(multipart);
+
+                    Transport.send(message);
+                    return 0;
+                } catch (MessagingException e) {
+                    return 2;
+                }
+            } else {
+                return 1;
+            }
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            loadingDialog = new MaterialDialog.Builder(ResultActivity.this)
+                    .content(R.string.dialog_mail_sending)
+                    .progress(false, 0)
+                    .build();
+
+            loadingDialog.show();
+
+            idText = idBox.getText().toString();
+            passText = passwordBox.getText().toString();
+
+            rader = radarChart.getChartBitmap();
+            line = lineChart.getChartBitmap();
+        }
+
+        @Override
+        protected void onPostExecute(Integer aVoid) {
+            super.onPostExecute(aVoid);
+            switch (aVoid) {
+                case 1:
+                    Toast.makeText(ResultActivity.this, R.string.activity_result_message_1, Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    Toast.makeText(ResultActivity.this, R.string.activity_result_message_2, Toast.LENGTH_SHORT).show();
+                    break;
+                case 0:
+                    Toast.makeText(ResultActivity.this, R.string.activity_result_message_0, Toast.LENGTH_SHORT).show();
+                    break;
+            }
+        }
     }
 }

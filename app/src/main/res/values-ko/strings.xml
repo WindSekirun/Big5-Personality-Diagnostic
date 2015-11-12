@@ -19,13 +19,13 @@
     <string name="fragment_question_submit">전송</string>
     <string name="util_storage_dialog">분석중..</string>
     <string name="activity_result_title">분석 결과</string>
-    <string name="actvity_result_save">갤러리에 저장</string>
+    <string name="actvity_result_save">저장</string>
     <string name="activity_result_share">공유</string>
     <string name="activity_result_saved_gallery">갤러리에 저장하였습니다.</string>
     <string name="activity_result_share_intent">결과 이미지 공유</string>
     <string name="activity_result_gallery_scanned">저장소를 스캔했습니다.</string>
     <string name="activity_maker_title">누가 이 앱을 만들었나요?</string>
-    <string name="activity_result_shape_change">모양 변경</string>
+    <string name="activity_result_shape_change">토글</string>
 
     <string name="question01">1. 내 삶은 파티 자체이다.</string>
     <string name="question02">2. 나는 다른 사람들의 감정을 측은히 여긴다.</string>
@@ -52,6 +52,15 @@
     <string name="activity_main_exit_question">정말로 종료하시겠습니까?</string>
     <string name="activity_main_ok">예</string>
     <string name="activity_main_no">아니오</string>
+    <string name="activity_result_mail">메일</string>
+    <string name="dialog_mail_save">확인</string>
+    <string name="dialog_mail_exit">닫기</string>
+    <string name="dialog_mail_check">ID 저장</string>
+    <string name="dialog_mail_content">구글 계정을 입력하세요.</string>
+    <string name="dialog_mail_sending">보내는 중..</string>
+    <string name="activity_result_message_1">아이디나 비밀번호를 확인하세요.</string>
+    <string name="activity_result_message_2">에러가 발생했습니다. 잠시만 기다려주세요.</string>
+    <string name="activity_result_message_0">이메일을 보냈습니다.</string>
 
 
 </resources>

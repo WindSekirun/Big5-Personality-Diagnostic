@@ -40,17 +40,26 @@
     <string name="question18">18. I make a mess of things.</string>
     <string name="question19">19. I seldom feel blue.</string>
     <string name="question20">20. I do not have a good imagination.</string>
-    <string name="actvity_result_save">Save to Gallery</string>
+    <string name="actvity_result_save">Save</string>
     <string name="activity_result_share">Share</string>
     <string name="activity_result_saved_gallery">Saved to Gallery</string>
     <string name="activity_result_share_intent">Share Result using..</string>
     <string name="activity_result_gallery_scanned">Scanned Gallery</string>
     <string name="activity_maker_title">Who make this App?</string>
-    <string name="activity_result_shape_change">Change Shape</string>
+    <string name="activity_result_shape_change">Toggle</string>
     <string name="fragment_question_notcheck">Check the Answer</string>
     <string name="storage_question_load_temped">Loaded Temp Data.</string>
     <string name="activity_main_exit_question">Are you exit Big5?</string>
     <string name="activity_main_ok">OK</string>
     <string name="activity_main_no">NO</string>
+    <string name="activity_result_mail">Mail</string>
+    <string name="dialog_mail_save">Save</string>
+    <string name="dialog_mail_exit">Exit</string>
+    <string name="dialog_mail_check">Save ID</string>
+    <string name="dialog_mail_content">Enter the GMail Account</string>
+    <string name="dialog_mail_sending">Sending..</string>
+    <string name="activity_result_message_1">Enter ID or Password</string>
+    <string name="activity_result_message_2">Some Error Expected.</string>
+    <string name="activity_result_message_0">Succeed send Email.</string>
 
 </resources>

@@ -26,40 +26,62 @@
         android:background="#0097A7"
         android:id="@+id/relativeLayout">
 
-        <Button
-            android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:background="#00000000"
-            android:text="@string/actvity_result_save"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="5dip" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:background="#0097A7"
-            android:text="@string/activity_result_share"
-            android:textColor="#ffffff"
-            android:layout_marginRight="5dip" />
+            <Button
+                android:id="@+id/saveButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="#00000000"
+                android:text="@string/actvity_result_save"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="5dip"
+                android:layout_weight="1" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/activity_result_shape_change"
-            android:id="@+id/shapeButton"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/shareButton"
-            android:layout_toStartOf="@+id/shareButton"
-            android:background="#00000000"
-            android:textColor="#ffffff" />
+            <Button
+                android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="#0097A7"
+                android:text="@string/activity_result_share"
+                android:textColor="#ffffff"
+                android:layout_marginRight="5dip"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_result_shape_change"
+                android:id="@+id/shapeButton"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/shareButton"
+                android:layout_toStartOf="@+id/shareButton"
+                android:background="#00000000"
+                android:textColor="#ffffff"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/activity_result_mail"
+                android:id="@+id/mailButton"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/saveButton"
+                android:layout_toLeftOf="@+id/shapeButton"
+                android:layout_toStartOf="@+id/shapeButton"
+                android:background="#00000000"
+                android:layout_weight="1"
+                android:textColor="#ffffff" />
+        </LinearLayout>
 
     </RelativeLayout>
 
