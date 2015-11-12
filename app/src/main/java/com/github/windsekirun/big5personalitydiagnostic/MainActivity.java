@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -23,11 +24,15 @@ import com.github.windsekirun.big5personalitydiagnostic.util.narae.NaraePreferen
 import com.github.windsekirun.big5personalitydiagnostic.util.onFragmentChangeRequest;
 import com.joanzapata.iconify.IconDrawable;
 import com.joanzapata.iconify.fonts.FontAwesomeIcons;
+import com.mikepenz.materialdrawer.AccountHeader;
+import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 
 import java.util.Locale;
 
@@ -76,6 +81,14 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
     }
 
     public void drawerSetting() {
+        ProfileDrawerItem nowItem = new ProfileDrawerItem().withName(getString(R.string.app_name)).withEmail("Sourced by @WindSekirun")
+                .withIcon(ContextCompat.getDrawable(this, R.drawable.web_hi_res_512));
+        AccountHeader headerResult = new AccountHeaderBuilder()
+                .withActivity(this)
+                .addProfiles(nowItem)
+                .withHeaderBackground(R.drawable.under_blude)
+                .build();
+
         PrimaryDrawerItem question = new PrimaryDrawerItem().withName(R.string.activity_main_questions)
                 .withIcon(new IconDrawable(this, FontAwesomeIcons.fa_question_circle).color(0xff727272));
         PrimaryDrawerItem canoe = new PrimaryDrawerItem().withName(R.string.activity_CANOE_title)
@@ -90,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                 .withIcon(new IconDrawable(this, FontAwesomeIcons.fa_info_circle).color(0xff727272));
 
         drawer = new DrawerBuilder()
+                .withAccountHeader(headerResult)
                 .withActivity(this)
                 .withTranslucentStatusBar(true)
                 .withActionBarDrawerToggle(true)
@@ -99,10 +113,10 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                     @Override
                     public boolean onItemClick(View view, int i, IDrawerItem iDrawerItem) {
                         switch (i) {
-                            case 0:
+                            case 1:
                                 drawer.setSelection(0);
                                 break;
-                            case 1:
+                            case 2:
                                 /* Now, WebView Engine current issue ERR_CACHE_MISS, so i intent to web directly.
                                 Intent canoe = new Intent(MainActivity.this, CANOEActivity.class);
                                 startActivity(canoe);
@@ -117,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
-                            case 3:
+                            case 4:
                                 String url = "https://github.com/WindSekirun/Big5-Personality-Diagnostic";
                                 Intent intent = new Intent(Intent.ACTION_VIEW);
                                 intent.setData(Uri.parse(url));
@@ -125,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
-                            case 4:
+                            case 5:
                                 Intent license = new Intent(MainActivity.this, WebViewActivity.class);
                                 license.putExtra(webViewUrl, "file:///android_asset/license.html");
                                 license.putExtra(webViewTitie, getString(R.string.activity_main_license));
@@ -133,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
-                            case 5:
+                            case 6:
                                 Intent maker = new Intent(MainActivity.this, WebViewActivity.class);
                                 maker.putExtra(webViewUrl, "file:///android_asset/maker.html");
                                 maker.putExtra(webViewTitie, getString(R.string.activity_main_maker));
@@ -141,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements Consts, onFragmen
                                 overridePendingTransition(0, 0);
                                 drawer.setSelection(0);
                                 break;
-                            case 6:
+                            case 7:
                                 Intent help = new Intent(MainActivity.this, WebViewActivity.class);
                                 help.putExtra(webViewUrl, "file:///android_asset/help.html");
                                 help.putExtra(webViewTitie, getString(R.string.activity_main_help));
