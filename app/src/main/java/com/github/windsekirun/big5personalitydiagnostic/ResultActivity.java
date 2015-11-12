@@ -426,7 +426,7 @@ public class ResultActivity extends AppCompatActivity implements Consts {
                 try {
                     Message message = new MimeMessage(session);
                     message.setFrom(new InternetAddress(idText));
-                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("windsekirun@gmail.com"));
+                    message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toMail));
                     message.setSubject("[Big5] Sending Data from " + idText);
                     message.setText("Sent by Big5 Application");
 

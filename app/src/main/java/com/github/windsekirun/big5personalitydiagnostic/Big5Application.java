@@ -27,7 +27,6 @@ public class Big5Application extends Application implements Consts {
         return application.watcher;
     }
 
-
     @Override
     public void onCreate() {
         super.onCreate();
